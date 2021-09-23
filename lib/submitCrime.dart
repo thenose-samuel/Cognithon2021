@@ -22,32 +22,16 @@ class SubmitCrime extends StatelessWidget {
               IconButton(onPressed: () {}, icon: Icon(Icons.done_rounded))
             ],
           ),
-          body: Column(
-            children: [
-              Text("Longitude: $longitude"),
-            Text("Latitude: $latitude")
-            ],
-          )),
+          body: Form(),
+    )
     );
   }
 }
-// class Form extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Enter details"),
-//         centerTitle: true,
-//         backgroundColor: Colors.black,
-//       leading: IconButton(
-//         onPressed: (){Navigator.of(context).pop();},
-//         icon: Icon(Icons.arrow_back_ios),
-//       ),
-//       actions: [
-//         IconButton(onPressed: (){}, icon: Icon(Icons.done_rounded))
-//       ],
-//       ),
-//
-//     );
-//   }
-// }
+class Form extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //Build the form here
+    );
+  }
+}

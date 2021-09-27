@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:crime_watch/submitCrime.dart';
 import 'package:location/location.dart';
 
@@ -15,54 +15,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Completer<GoogleMapController> _controller = Completer();
   late GoogleMapController mapController;
   var latitude, longitude;
-  /*
-  * Testing gps coordinates get request
-  * */
-  Future<void> getLocation() async {
-    Location location = new Location();
-
-    bool _serviceEnabled;
-    late PermissionStatus _permissionGranted;
-    late LocationData _locationData;
-
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-
-    _locationData = await location.getLocation();
-    print("Successfully configured gps");
-    print("$_locationData");
-  }
-
-  /*###################################*/
-  String _mapStyle = "none";
   final LatLng _center = const LatLng(55.521563, -122.677433);
-  @override
-  void initState() {
-    super.initState();
-
-    rootBundle.loadString('assets/mapStyle.txt').then((string) {
-      _mapStyle = string;
-    });
-  }
-
-  // void _onMapCreated(GoogleMapController controller) {
-  //   mapController = controller;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +27,7 @@ class _MyAppState extends State<MyApp> {
         padding: EdgeInsets.only(bottom: 25.0),
         child: FloatingActionButton(
           onPressed: () {
-            getLocation();
+            goToCurrentLocation();
           },
           tooltip: 'Go to current location',
           backgroundColor: Colors.black,
@@ -106,8 +62,7 @@ class _MyAppState extends State<MyApp> {
       body: Stack(children: [
         GoogleMap(
           onMapCreated: (GoogleMapController controller) {
-            mapController = controller;
-            mapController.setMapStyle(_mapStyle);
+            _controller.complete(controller);
           },
           initialCameraPosition: CameraPosition(
             target: _center,
@@ -134,5 +89,44 @@ class _MyAppState extends State<MyApp> {
         ]),
       ]),
     );
+  }
+
+
+  /*
+  * Check if gps is enabled &&
+  * Animate camera to current user location
+  * */
+  Future<void> goToCurrentLocation() async {
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    late PermissionStatus _permissionGranted;
+    late LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    _locationData = await location.getLocation();
+    setState(() {
+      latitude = _locationData.latitude;
+      longitude = _locationData.longitude;
+    });
+    print("Successfully configured gps");
+    print("$_locationData");
+    /***********************/
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(latitude, longitude),zoom: 15.0)));
+/*###################################*/
   }
 }

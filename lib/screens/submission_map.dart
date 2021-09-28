@@ -12,13 +12,12 @@ class SubmissionMap extends StatefulWidget {
   _SubmissionMapState createState() => _SubmissionMapState();
 }
 
-
 class _SubmissionMapState extends State<SubmissionMap> {
   Completer<GoogleMapController> _controller = Completer();
   late GoogleMapController mapController;
-  var latitude, longitude;
+  dynamic latitude, longitude;
   final LatLng _center = const LatLng(55.521563, -122.677433);
-
+  Marker marker = Marker(markerId: const MarkerId('null'));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +32,16 @@ class _SubmissionMapState extends State<SubmissionMap> {
           child: Icon(Icons.gps_fixed_rounded),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       drawer: Drawer(
           child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(color: Colors.purple),
-                child: Text("Crime Watch"),
-              )
-            ],
-          )),
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(color: Colors.purple),
+            child: Text("Crime Watch"),
+          )
+        ],
+      )),
       appBar: AppBar(
           centerTitle: true,
           title: const Text('Set Location'),
@@ -60,6 +58,10 @@ class _SubmissionMapState extends State<SubmissionMap> {
           ]),
       body: Stack(children: [
         GoogleMap(
+          zoomControlsEnabled: false,
+          markers: {
+            if (marker != null) marker,
+          },
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
@@ -67,30 +69,56 @@ class _SubmissionMapState extends State<SubmissionMap> {
             target: _center,
             zoom: 11.0,
           ),
-          onCameraMove: (CameraPosition position) {
-            setState(() {
-              latitude = position.target.latitude;
-              longitude = position.target.longitude;
-            });
-          },
+          onLongPress: addMarker,
+          // onCameraMove: (CameraPosition position) {
+          //   setState(() {
+          //     latitude = position.target.latitude;
+          //     longitude = position.target.longitude;
+          //   });
+          // },
         ),
-        Center(
-            child: IgnorePointer(
-              child: Icon(
-                Icons.location_on_rounded,
-                color: CupertinoColors.black,
-                size: 40,
-              ),
-            )),
-        Column(children: [
-          Text('Latitude: $latitude'),
-          Text('Longitude: $longitude')
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+            width: 250,
+            child: Text(
+              (latitude == null)?'Select a location':'Latitude: $latitude',
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Colors.indigoAccent,
+            margin: EdgeInsets.only(right: 200.0),
+            padding: EdgeInsets.only(top: 10.0, left: 10.0),
+          ),
+          Container(
+            width: 250,
+            child: Text(
+              (longitude == null)?'to view coordinates':'Longitude: $longitude',
+              style: TextStyle(color: Colors.white),
+            ),
+            margin: EdgeInsets.only(right: 200.0),
+            padding: EdgeInsets.only(bottom: 10.0, top: 10.0, left: 10.0),
+            decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.only(bottomRight: Radius.circular(25.0)),
+                color: Colors.indigoAccent),
+          )
         ]),
-
       ]),
     );
   }
 
+/*
+* Function to place a marker on the map
+* */
+  void addMarker(LatLng position) async {
+    setState(() {
+      latitude = position.latitude;
+      longitude = position.longitude;
+      marker = Marker(
+        markerId: const MarkerId('event'),
+        position: position,
+      );
+    });
+  }
 
   /*
   * Check if gps is enabled &&
@@ -126,7 +154,8 @@ class _SubmissionMapState extends State<SubmissionMap> {
     print("$_locationData");
     /***********************/
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(latitude, longitude),zoom: 15.0)));
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(latitude, longitude), zoom: 15.0)));
 /*###################################*/
   }
 }

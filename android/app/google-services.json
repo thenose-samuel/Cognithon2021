@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "983580300627",
+    "firebase_url": "https://cognithon2021-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cognithon2021",
+    "storage_bucket": "cognithon2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983580300627:android:9d7c379973f5be75657da6",
+        "android_client_info": {
+          "package_name": "com.thenose.crime_watch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983580300627-m71ojp43b55njlcu68id2bhgvs1agha3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv1bsnoWfNzHEDw6WuYFXAeG6BU49iKnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "983580300627-m71ojp43b55njlcu68id2bhgvs1agha3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

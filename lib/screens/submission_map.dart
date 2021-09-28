@@ -2,19 +2,18 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'screens/submitCrime.dart';
+import 'submitCrime.dart';
 import 'package:location/location.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SubmissionMap extends StatefulWidget {
+  const SubmissionMap({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  _SubmissionMapState createState() => _SubmissionMapState();
 }
 
-class _MyAppState extends State<MyApp> {
+
+class _SubmissionMapState extends State<SubmissionMap> {
   Completer<GoogleMapController> _controller = Completer();
   late GoogleMapController mapController;
   var latitude, longitude;
@@ -37,14 +36,14 @@ class _MyAppState extends State<MyApp> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       drawer: Drawer(
           child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.purple),
-            child: Text("Crime Watch"),
-          )
-        ],
-      )),
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(color: Colors.purple),
+                child: Text("Crime Watch"),
+              )
+            ],
+          )),
       appBar: AppBar(
           centerTitle: true,
           title: const Text('Set Location'),
@@ -77,16 +76,17 @@ class _MyAppState extends State<MyApp> {
         ),
         Center(
             child: IgnorePointer(
-          child: Icon(
-            Icons.location_on_rounded,
-            color: CupertinoColors.black,
-            size: 40,
-          ),
-        )),
+              child: Icon(
+                Icons.location_on_rounded,
+                color: CupertinoColors.black,
+                size: 40,
+              ),
+            )),
         Column(children: [
           Text('Latitude: $latitude'),
           Text('Longitude: $longitude')
         ]),
+
       ]),
     );
   }

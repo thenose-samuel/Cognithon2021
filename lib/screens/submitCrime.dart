@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:crime_watch/services/data_handler.dart';
 
 class SubmitCrime extends StatelessWidget {
   final latitude, longitude;
+
   SubmitCrime({Key? key, required this.latitude, required this.longitude})
       : super(key: key);
+
+  DatabaseService write = DatabaseService();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +24,9 @@ class SubmitCrime extends StatelessWidget {
               icon: Icon(Icons.arrow_back_ios),
             ),
             actions: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.done_rounded))
+              IconButton(onPressed: () {
+                write.writeToDatabase(1, latitude, longitude, 'type',' description');
+              }, icon: Icon(Icons.done_rounded))
             ],
           ),
           body: Form(),

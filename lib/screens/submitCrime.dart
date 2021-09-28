@@ -25,7 +25,7 @@ class SubmitCrime extends StatelessWidget {
             ),
             actions: [
               IconButton(onPressed: () {
-                write.writeToDatabase(1, latitude, longitude, 'type',' description');
+                write.writeToDatabase(latitude, longitude, 'type',' description');
               }, icon: Icon(Icons.done_rounded))
             ],
           ),

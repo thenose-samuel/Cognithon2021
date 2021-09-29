@@ -3,7 +3,11 @@ import 'package:crime_watch/screens/submission_map.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(home: SubmissionMap()));
+void main() => runApp(MaterialApp(
+    theme: ThemeData(
+      fontFamily: 'HelveticaNow',
+    ),
+    home: SubmissionMap()));
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

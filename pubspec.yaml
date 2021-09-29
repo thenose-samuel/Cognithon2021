@@ -38,10 +38,16 @@ dependencies:
   google_sign_in: ^5.1.1
   sqflite: ^2.0.0+4
   path: ^1.8.0
+  flutter_native_splash: ^1.2.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: lib/assets/splash.png
+  android: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

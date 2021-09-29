@@ -21,6 +21,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: 25.0),
         child: FloatingActionButton(
@@ -58,7 +59,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
           ]),
       body: Stack(children: [
         GoogleMap(
-          zoomControlsEnabled: false,
+          zoomControlsEnabled: true,
           markers: {
             if (marker != null) marker,
           },

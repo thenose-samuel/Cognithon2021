@@ -33,6 +33,7 @@ dependencies:
   location: ^4.2.0
   firebase_core: ^1.6.0
   firebase_database: ^8.0.0
+  twilio_flutter: ^0.0.9
 
 dev_dependencies:
   flutter_test:

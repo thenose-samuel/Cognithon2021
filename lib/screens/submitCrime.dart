@@ -26,7 +26,7 @@ class SubmitCrime extends StatelessWidget {
               icon: Icon(Icons.arrow_back_ios),
             ),
             actions: [
-              IconButton(onPressed: () {
+              IconButton(onPressed: (){
                 //write.writeToDatabase(latitude, longitude, 'type',' description');
                 //obj.sendMessage('+919383049004', 'Test Message');
               }, icon: Icon(Icons.done_rounded))

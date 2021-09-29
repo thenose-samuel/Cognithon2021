@@ -2,11 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_watch/main.dart';
+import 'package:crime_watch/screens/check_connection.dart';
+import 'package:crime_watch/services/user_model.dart';
+import 'package:sqflite/sqflite.dart';
+import 'local_db.dart';
 
 class SignInService{
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-
   Future<void> signup(BuildContext context) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
@@ -17,13 +20,24 @@ class SignInService{
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken);
       dynamic result = await auth.signInWithCredential(authCredential);
-      User? user = result.user;
+      User? user = await result.user;
       if (result != null) {
+        UserModel _user = UserModel(email: '${user!.email}', name: '${user.displayName}');
+        /**
+         * Inserting user into the db
+         * */
+        DatabaseHandler handler = DatabaseHandler();
+        final Database db = await handler.initializeDB();
+        await db.insert('user', _user.toMap());
+        //#######
+
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MyApp()));
       }  // if result not null we simply call the MaterialpageRoute,
-
+      else{
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Error()));
+      }
     }
-  }
-
+    }
   }

@@ -1,5 +1,7 @@
+import 'package:crime_watch/services/local_db.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:sqflite/sqflite.dart';
+import 'package:crime_watch/services/user_model.dart';
 import 'screens/sign_in.dart';
 import 'package:crime_watch/screens/submission_map.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,12 +14,24 @@ void main() async {
   //await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(
-    MaterialApp(
-    theme: ThemeData(
-      fontFamily: 'HelveticaNow',
-    ),
-    home: SignIn()));}
+  DatabaseHandler handler = DatabaseHandler();
+  bool userExists = false;
+  List<UserModel> user = await handler.retrieveUsers();
+  if (user.length == 0)
+    userExists = false;
+  else
+    userExists = true;
+  dynamic Home;
+  if (userExists)
+    Home = MyApp();
+  else
+    Home = SignIn();
+  runApp(MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'HelveticaNow',
+      ),
+      home: Home));
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

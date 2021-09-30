@@ -30,7 +30,7 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
-      home: Home));
+      home: SubmissionMap()));
 }
 
 class MyApp extends StatefulWidget {

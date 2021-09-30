@@ -16,31 +16,29 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Opacity(
-        opacity: opacityVal,//(loggedIn)?setState((){opacityVal = 1.0}):setState((){opacityVal = 0.0}),
-        child: FloatingActionButton.extended(
-          onPressed: () {},
-          backgroundColor: Colors.purple,
-          label: Text(
-            "Continue",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: Colors.black,
-            ),
-          ),
-          icon: Icon(Icons.arrow_forward_ios_rounded,
-          color: Colors.black,),
-        ),
-      ),
+      backgroundColor: Colors.black,
+      // floatingActionButton: Opacity(
+      //   opacity: opacityVal,//(loggedIn)?setState((){opacityVal = 1.0}):setState((){opacityVal = 0.0}),
+      //   child: FloatingActionButton.extended(
+      //     onPressed: () {},
+      //     backgroundColor: Colors.purple,
+      //     label: Text(
+      //       "Continue",
+      //       style: TextStyle(
+      //         fontSize: 20,
+      //         fontWeight: FontWeight.w400,
+      //         color: Colors.black,
+      //       ),
+      //     ),
+      //     icon: Icon(Icons.arrow_forward_ios_rounded,
+      //     color: Colors.black,),
+      //   ),
+      // ),
       appBar: AppBar(
         backgroundColor: Colors.black,
       ),
-      body: Container(
-        width: 1000,
-        color: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 35),
+      body: Padding(
+          padding: const EdgeInsets.only(left: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -111,7 +109,7 @@ class _SignInState extends State<SignIn> {
             ],
           ),
         ),
-      ),
+
     );
   }
 }

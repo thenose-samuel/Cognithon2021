@@ -1,3 +1,4 @@
+import 'package:crime_watch/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class SignInService{
       dynamic result = await auth.signInWithCredential(authCredential);
       User? user = await result.user;
       if (result != null) {
-        UserModel _user = UserModel(email: '${user!.email}', name: '${user.displayName}');
+        UserModel _user = UserModel(email: '${user!.email}', name: '${user.displayName}', image: '${user.photoURL}');
         /**
          * Inserting user into the db
          * */
@@ -30,9 +31,9 @@ class SignInService{
         final Database db = await handler.initializeDB();
         await db.insert('user', _user.toMap());
         //#######
-
+        List<UserModel> firstUser = await handler.retrieveUsers();
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MyApp()));
+            context, MaterialPageRoute(builder: (context) => Home(name: '${firstUser[0].name}', image: '${firstUser[0].image}',)));
       }  // if result not null we simply call the MaterialpageRoute,
       else{
         Navigator.pushReplacement(

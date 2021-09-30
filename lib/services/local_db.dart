@@ -9,7 +9,7 @@ class DatabaseHandler {
       join(path, 'user.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT)",
+          "CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT, image TEXT)",
         );
       },
       version: 1,

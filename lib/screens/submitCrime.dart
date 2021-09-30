@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:crime_watch/services/data_handler.dart';
-import 'package:crime_watch/services/message_handler.dart';
 
 
 class SubmitCrime extends StatelessWidget {
@@ -10,7 +9,6 @@ class SubmitCrime extends StatelessWidget {
       : super(key: key);
 
   DatabaseService write = DatabaseService();
-  SendSms obj = SendSms();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +25,7 @@ class SubmitCrime extends StatelessWidget {
             ),
             actions: [
               IconButton(onPressed: (){
-                //write.writeToDatabase(latitude, longitude, 'type',' description');
+
                 //obj.sendMessage('+919383049004', 'Test Message');
               }, icon: Icon(Icons.done_rounded))
             ],

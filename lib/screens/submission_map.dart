@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'package:crime_watch/services/mapStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'submitCrime.dart';
 import 'package:location/location.dart';
+import 'package:prompt_dialog/prompt_dialog.dart';
+import 'package:crime_watch/services/data_handler.dart';
+
 
 class SubmissionMap extends StatefulWidget {
   const SubmissionMap({Key? key}) : super(key: key);
@@ -14,18 +17,26 @@ class SubmissionMap extends StatefulWidget {
 }
 
 class _SubmissionMapState extends State<SubmissionMap> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!
+        .addPostFrameCallback((_) => goToCurrentLocation());
+  }
   Completer<GoogleMapController> _controller = Completer();
   late GoogleMapController mapController;
-  double _opacity = 0.5;
+  double _opacity = 0;
   dynamic latitude, longitude;
+  dynamic description, rating;
   final LatLng _center = const LatLng(55.521563, -122.677433);
   Marker marker = Marker(markerId: const MarkerId('null'));
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context2) {
     return Scaffold(
       backgroundColor: Colors.black12,
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: 145.0),
+        padding: EdgeInsets.only(bottom: 160.0),
         child: FloatingActionButton(
           onPressed: () {
             goToCurrentLocation();
@@ -38,20 +49,12 @@ class _SubmissionMapState extends State<SubmissionMap> {
           ),
         ),
       ),
-      // drawer: Drawer(
-      //     child: ListView(
-      //   padding: EdgeInsets.zero,
-      //   children: [
-      //     const DrawerHeader(
-      //       decoration: BoxDecoration(color: Colors.purple),
-      //       child: Text("Crime Watch"),
-      //     )
-      //   ],
-      // )),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_rounded),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: const Text(
           'Mark a safe spot',
@@ -60,27 +63,29 @@ class _SubmissionMapState extends State<SubmissionMap> {
           ),
         ),
         backgroundColor: Colors.black,
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.done_rounded),
-        //     onPressed: () {
-        //       Navigator.of(context).push(MaterialPageRoute(
-        //           builder: (context) =>
-        //               SubmitCrime(latitude: latitude, longitude: longitude)));
-        //     },
-        //   )
-        // ]
       ),
       body: Stack(children: [
+        Padding(
+          padding: const EdgeInsets.only(
+              top: 10.0, bottom: 20.0, left: 10.0, right: 10.0),
+          child: Text(
+            "Mark a safe spot by long tapping on the map so that our other users may benefit from it in the future.",
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey),
+          ),
+        ),
         Center(
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 150.0, top: 150.0),
+            padding: const EdgeInsets.only(bottom: 170.0, top: 100.0, right: 10.0, left: 10.0),
             child: GoogleMap(
               zoomControlsEnabled: false,
               markers: {
                 if (marker.markerId != MarkerId('null')) marker,
               },
               onMapCreated: (GoogleMapController controller) {
+                controller.setMapStyle(Utils.mapStyle);
                 _controller.complete(controller);
               },
               initialCameraPosition: CameraPosition(
@@ -91,94 +96,107 @@ class _SubmissionMapState extends State<SubmissionMap> {
             ),
           ),
         ),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 10.0, bottom: 20.0, left: 10.0, right: 10.0),
-            child: Text(
-              "Mark a safe spot by long tapping on the map so that our other users may benifit from it in the future.",
-              style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey),
-            ),
-          ),
-          Container(
-            width: 250,
-            child: Text(
-              (latitude == null) ? 'Select a location' : 'Latitude: $latitude',
-              style: TextStyle(color: Colors.white),
-            ),
-            color: Colors.indigoAccent,
-            margin: EdgeInsets.only(right: 200.0),
-            padding: EdgeInsets.only(top: 10.0, left: 10.0),
-          ),
-          Container(
-            width: 250,
-            child: Text(
-              (longitude == null)
-                  ? 'to view coordinates'
-                  : 'Longitude: $longitude',
-              style: TextStyle(color: Colors.white),
-            ),
-            margin: EdgeInsets.only(right: 200.0),
-            padding: EdgeInsets.only(bottom: 10.0, top: 10.0, left: 10.0),
-            decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.only(bottomRight: Radius.circular(25.0)),
-                color: Colors.indigoAccent),
-          ),
-          Container(
-            height: 320,
-          ),
-          Opacity(
-            opacity: _opacity,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Rate the safety provided by this location",
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 20),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 70, left: 70),
-                  child: RatingBar.builder(
-                    initialRating: 5,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
+        Column(crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+          SingleChildScrollView(
+            child: Opacity(
+              opacity: _opacity,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(
+                      "Rate the safety provided by this location",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 17),
                     ),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                    },
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButton(
-                        onPressed: () {},
-                        child: Text("Add a short description?",
-                            style:
-                                TextStyle(color: Colors.purple, fontSize: 15.0))),
-                    RaisedButton(
-                      onPressed: () {},
-                      child: Text('SUBMIT'),
-                      color: Colors.purple,
-                    )
-                  ],
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(right: 50, left:50, bottom: 10.0,top:10.0),
+                    child: Container(
+                      color: Colors.grey[800],
+                      child: RatingBar.builder(
+                        initialRating: 5,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rate) {
+                          print(rating);
+                         rating = rate;
+                        },
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                          onPressed: () async {
+                            description = await prompt(
+                              context,
+                              title: Text('Description'),
+                              initialValue: '',
+                              isSelectedInitialValue: false,
+                              textOK: Text('Done'),
+                              textCancel: Text('Cancel'),
+                              hintText: 'Enter a short description',
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                              minLines: 1,
+                              maxLines: 3,
+                              autoFocus: true,
+                              obscureText: false,
+                              obscuringCharacter: '•',
+                              barrierDismissible: true,
+                              textCapitalization: TextCapitalization.words,
+                            );
+                            print(description);
+                          },
+                          child: Text("Add a short description?",
+                              style: TextStyle(
+                                  color: Colors.purple, fontSize: 15.0))),
+                      RaisedButton(
+                        onPressed: () async{
+                          DatabaseService write = DatabaseService();
+                          await write.writeToDatabase(latitude, longitude, rating,description);
+                          print("Write successful");
+                          description = null;
+                          return showDialog(
+                            context: context2,
+                            builder: (ctx) => AlertDialog(
+                              content: Text("Successfully Added"),
+                              actions: [
+                                TextButton(
+                                  onPressed: (){
+                                    int count = 0;
+                                    Navigator.of(context).popUntil((_) => count++ >= 2);
+                                  },
+                                  child: Text("Ok"),
+                                )
+                              ],
+                            )
+                          );
+                          },
+                        child: Text('SUBMIT'),
+                        color: Colors.purple,
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ]),
@@ -193,6 +211,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
     setState(() {
       latitude = position.latitude;
       longitude = position.longitude;
+      _opacity = 1.0;
       marker = Marker(
         markerId: const MarkerId('event'),
         position: position,

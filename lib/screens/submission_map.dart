@@ -99,107 +99,107 @@ class _SubmissionMapState extends State<SubmissionMap> {
         Column(crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-          SingleChildScrollView(
-            child: Opacity(
-              opacity: _opacity,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Text(
-                      "Rate the safety provided by this location",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 17),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 50, left:50, bottom: 10.0,top:10.0),
-                    child: Container(
-                      color: Colors.grey[800],
-                      child: RatingBar.builder(
-                        initialRating: 5,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (rate) {
-                          print(rating);
-                         rating = rate;
-                        },
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              SingleChildScrollView(
+                child: Opacity(
+                  opacity: _opacity,
+                  child: Column(
                     children: [
-                      TextButton(
-                          onPressed: () async {
-                            description = await prompt(
-                              context,
-                              title: Text('Description'),
-                              initialValue: '',
-                              isSelectedInitialValue: false,
-                              textOK: Text('Done'),
-                              textCancel: Text('Cancel'),
-                              hintText: 'Enter a short description',
-                              validator: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              minLines: 1,
-                              maxLines: 3,
-                              autoFocus: true,
-                              obscureText: false,
-                              obscuringCharacter: '•',
-                              barrierDismissible: true,
-                              textCapitalization: TextCapitalization.words,
-                            );
-                            print(description);
-                          },
-                          child: Text("Add a short description?",
-                              style: TextStyle(
-                                  color: Colors.purple, fontSize: 15.0))),
-                      RaisedButton(
-                        onPressed: () async{
-                          DatabaseService write = DatabaseService();
-                          await write.writeToDatabase(latitude, longitude, rating,description);
-                          print("Write successful");
-                          description = null;
-                          return showDialog(
-                            context: context2,
-                            builder: (ctx) => AlertDialog(
-                              content: Text("Successfully Added"),
-                              actions: [
-                                TextButton(
-                                  onPressed: (){
-                                    int count = 0;
-                                    Navigator.of(context).popUntil((_) => count++ >= 2);
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Text(
+                          "Rate the safety provided by this location",
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 17),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 50, left:50, bottom: 10.0,top:10.0),
+                        child: Container(
+                          color: Colors.grey[800],
+                          child: RatingBar.builder(
+                            initialRating: 5,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rate) {
+                              print(rating);
+                              rating = rate;
+                            },
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                              onPressed: () async {
+                                description = await prompt(
+                                  context,
+                                  title: Text('Description'),
+                                  initialValue: '',
+                                  isSelectedInitialValue: false,
+                                  textOK: Text('Done'),
+                                  textCancel: Text('Cancel'),
+                                  hintText: 'Enter a short description',
+                                  validator: (String? value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
                                   },
-                                  child: Text("Ok"),
-                                )
-                              ],
-                            )
-                          );
-                          },
-                        child: Text('SUBMIT'),
-                        color: Colors.purple,
+                                  minLines: 1,
+                                  maxLines: 3,
+                                  autoFocus: true,
+                                  obscureText: false,
+                                  obscuringCharacter: '•',
+                                  barrierDismissible: true,
+                                  textCapitalization: TextCapitalization.words,
+                                );
+                                print(description);
+                              },
+                              child: Text("Add a short description?",
+                                  style: TextStyle(
+                                      color: Colors.purple, fontSize: 15.0))),
+                          RaisedButton(
+                            onPressed: () async{
+                              DatabaseService write = DatabaseService();
+                              await write.writeToDatabase(latitude, longitude, rating,description);
+                              print("Write successful");
+                              description = null;
+                              return showDialog(
+                                  context: context2,
+                                  builder: (ctx) => AlertDialog(
+                                    content: Text("Successfully Added"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: (){
+                                          int count = 0;
+                                          Navigator.of(context).popUntil((_) => count++ >= 2);
+                                        },
+                                        child: Text("Ok"),
+                                      )
+                                    ],
+                                  )
+                              );
+                            },
+                            child: Text('SUBMIT'),
+                            color: Colors.purple,
+                          )
+                        ],
                       )
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        ]),
+            ]),
       ]),
     );
   }

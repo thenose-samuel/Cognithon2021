@@ -24,7 +24,8 @@ void main() async {
     userExists = true;
   }
   dynamic first;
-  if (userExists)
+  //first = SubmissionMap();
+  if (user.length != 0)
     first = Home( name: '${user[0].name}', image: '${user[0].image}');
   else
     first = SignIn();

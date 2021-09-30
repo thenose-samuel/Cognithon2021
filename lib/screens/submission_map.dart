@@ -34,7 +34,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
   @override
   Widget build(BuildContext context2) {
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.teal[300],
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: 160.0),
         child: FloatingActionButton(
@@ -42,7 +42,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
             goToCurrentLocation();
           },
           tooltip: 'Go to current location',
-          backgroundColor: Colors.purpleAccent,
+          backgroundColor: Colors.teal[800],
           child: Icon(
             Icons.gps_fixed_rounded,
             color: Colors.black,
@@ -62,7 +62,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
             fontWeight: FontWeight.w800,
           ),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.teal[800],
       ),
       body: Stack(children: [
         Padding(
@@ -73,12 +73,12 @@ class _SubmissionMapState extends State<SubmissionMap> {
             style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w500,
-                color: Colors.grey),
+                color: Colors.teal[800]),
           ),
         ),
         Center(
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 170.0, top: 100.0, right: 10.0, left: 10.0),
+            padding: const EdgeInsets.only(bottom: 150.0, top: 100.0, right: 12.0, left: 12.0),
             child: GoogleMap(
               zoomControlsEnabled: false,
               markers: {
@@ -109,17 +109,17 @@ class _SubmissionMapState extends State<SubmissionMap> {
                         child: Text(
                           "Rate the safety provided by this location",
                           style: TextStyle(
-                              color: Colors.grey,
+                              color: Colors.teal[800],
                               fontWeight: FontWeight.w400,
-                              fontSize: 17),
+                              fontSize: 20),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 50, left:50, bottom: 10.0,top:10.0),
                         child: Container(
-                          color: Colors.grey[800],
+                          //color: Colors.grey[800],
                           child: RatingBar.builder(
-                            initialRating: 5,
+                            initialRating: 3,
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,
@@ -148,7 +148,6 @@ class _SubmissionMapState extends State<SubmissionMap> {
                                   isSelectedInitialValue: false,
                                   textOK: Text('Done'),
                                   textCancel: Text('Cancel'),
-                                  hintText: 'Enter a short description',
                                   validator: (String? value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter some text';
@@ -167,7 +166,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
                               },
                               child: Text("Add a short description?",
                                   style: TextStyle(
-                                      color: Colors.purple, fontSize: 15.0))),
+                                      color: Colors.teal[800], fontSize: 15.0, fontWeight: FontWeight.w600))),
                           RaisedButton(
                             onPressed: () async{
                               DatabaseService write = DatabaseService();
@@ -191,7 +190,7 @@ class _SubmissionMapState extends State<SubmissionMap> {
                               );
                             },
                             child: Text('SUBMIT'),
-                            color: Colors.purple,
+                            color: Colors.teal[800],
                           )
                         ],
                       )

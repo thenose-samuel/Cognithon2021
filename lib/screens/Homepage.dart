@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:crime_watch/screens/submission_map.dart';
+import 'package:crime_watch/screens/MarkSafeSpot.dart';
 import 'package:crime_watch/services/mapStyle.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -128,7 +128,7 @@ class _HomeState extends State<Home> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SubmissionMap(),
+                        builder: (context) => SpotMarker(),
                       ));
                 },
                 color: Colors.purple,

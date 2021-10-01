@@ -31,6 +31,7 @@ class SignInService{
         final Database db = await handler.initializeDB();
         await db.insert('user', _user.toMap());
         //#######
+
         List<UserModel> firstUser = await handler.retrieveUsers();
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home(name: '${firstUser[0].name}', image: '${firstUser[0].image}',)));

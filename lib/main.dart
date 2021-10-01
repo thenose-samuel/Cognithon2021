@@ -1,3 +1,4 @@
+import 'package:crime_watch/screens/add_contacts.dart';
 import 'package:crime_watch/services/local_db.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -33,9 +34,8 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
-      home: first));
+      home: EditContacts()));
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override

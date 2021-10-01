@@ -31,10 +31,10 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      goToCurrentLocation();
-      getMarkers();
       int index = name.indexOf(' ');
       name = name.substring(0, index);
+      goToCurrentLocation();
+      getMarkers();
     });
   }
 
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
-        title: Text('Welcome back, ${name}'),
+        title: Text('Welcome back, $name'),
       ),
       backgroundColor: Colors.black,
       body: Stack(
@@ -209,7 +209,7 @@ class _HomeState extends State<Home> {
             markerId: MarkerId('$count'),
             position: position,
             infoWindow: InfoWindow(
-              title: 'Safety rating: $rating/5',
+              title: 'Safety rating: $rating/5.0',
               snippet: desc,
             ),
         );

@@ -9,14 +9,14 @@ import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:crime_watch/services/data_handler.dart';
 
 
-class SubmissionMap extends StatefulWidget {
-  const SubmissionMap({Key? key}) : super(key: key);
+class SpotMarker extends StatefulWidget {
+  const SpotMarker({Key? key}) : super(key: key);
 
   @override
-  _SubmissionMapState createState() => _SubmissionMapState();
+  _SpotMarkerState createState() => _SpotMarkerState();
 }
 
-class _SubmissionMapState extends State<SubmissionMap> {
+class _SpotMarkerState extends State<SpotMarker> {
   @override
   void initState() {
     super.initState();

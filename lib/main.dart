@@ -4,12 +4,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:crime_watch/services/user_model.dart';
-import 'screens/sign_in.dart';
-import 'package:crime_watch/screens/submission_map.dart';
+import 'screens/FirstSigninPage.dart';
+import 'package:crime_watch/screens/MarkSafeSpot.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:crime_watch/screens/home.dart';
-import 'package:crime_watch/screens/send_message.dart';
+import 'package:crime_watch/screens/Homepage.dart';
+import 'package:crime_watch/screens/NotifyContacts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -25,7 +25,7 @@ void main() async {
     userExists = true;
   }
   dynamic first;
-  //first = SubmissionMap();
+  //first = SpotMarker();
   if (user.length != 0)
     first = Home( name: '${user[0].name}', image: '${user[0].image}');
   else
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       body: Center(
         child: TextButton(child: Text('Welcome Screen'), onPressed: (){
           Navigator.push(context,MaterialPageRoute(
-            builder: (context) => SubmissionMap(),
+            builder: (context) => SpotMarker(),
           ));
         },),
       ),

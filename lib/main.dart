@@ -1,4 +1,5 @@
 import 'package:crime_watch/screens/add_contacts.dart';
+import 'package:crime_watch/screens/share_location.dart';
 import 'package:crime_watch/services/local_db.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -17,13 +18,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHandler handler = DatabaseHandler();
-  bool userExists = false;
+  //bool userExists = false;
   List<UserModel> user = await handler.retrieveUsers();
-  if (user.length == 0)
-    userExists = false;
-  else {
-    userExists = true;
-  }
+  // if (user.length == 0)
+  //   userExists = false;
+  // else {
+  //   userExists = true;
+  // }
   dynamic first;
   //first = SpotMarker();
   if (user.length != 0)
@@ -31,10 +32,11 @@ void main() async {
   else
     first = SignIn();
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
-      home: first));
+      home: SignIn()));//ShareLocation(imageURL: '${user[0].image}')));
 }
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

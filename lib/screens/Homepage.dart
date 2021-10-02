@@ -86,7 +86,11 @@ class _HomeState extends State<Home> {
             children: [
               RaisedButton(
                 onPressed: () {
-                  print(data);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditContacts(),
+                      ));
                 },
                 color: Colors.purple,
                 child: SizedBox(

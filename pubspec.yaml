@@ -41,6 +41,7 @@ dependencies:
   flutter_native_splash: ^1.2.4
   flutter_rating_bar: ^4.0.0
   prompt_dialog: ^1.0.6
+  hexcolor: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,7 @@ flutter:
   assets:
     - lib/assets/mapStyle.txt
     - lib/assets/
+    - lib/assets/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

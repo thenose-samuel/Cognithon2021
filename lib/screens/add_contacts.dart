@@ -30,7 +30,7 @@ class _EditContactsState extends State<EditContacts> {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Saved Contacts';
+    const title = 'Edit Contacts';
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -116,10 +116,9 @@ class _EditContactsState extends State<EditContacts> {
                           // Provide a function that tells the app
                           // what to do after an item has been swiped away.
                           onDismissed: (direction) async {
-                            // Remove the item from the data source.
-                            await handler.delete(index);
+                            // Remove the item from the data source
+                            await delete(index);
                             refresh();
-
                             // Then show a snackbar.
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text('$number deleted')));
@@ -147,6 +146,9 @@ class _EditContactsState extends State<EditContacts> {
     );
   }
 
+  Future<void> delete(int index) async{
+    await handler.delete(index);
+}
   void refresh() async{
     contacts = await handler.retrieve();
     print(contacts.length);

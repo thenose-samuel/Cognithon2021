@@ -36,7 +36,6 @@ class ContactsHandler {
   Future<void> delete(int id) async {
     final Database db = await initializeDB();
     await db.rawDelete('DELETE FROM contacts WHERE id = $id');
-    db.close();
     print("Success");
   }
 }

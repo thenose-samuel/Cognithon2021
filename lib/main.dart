@@ -34,7 +34,7 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
-      home: EditContacts()));
+      home: first));
 }
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

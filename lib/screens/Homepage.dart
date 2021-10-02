@@ -8,6 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:crime_watch/services/data_handler.dart';
 
+import 'add_contacts.dart';
+
 class Home extends StatefulWidget {
    String name, image;
    Home({Key? key, required this.name, required this.image}) : super(key: key);
@@ -105,13 +107,28 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  TextButton(
+                    onPressed: () {
+                      getMarkers();
+                    },
+                    child: Text(
+                      "Refresh Markers",
+                      style: TextStyle(
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 30.0),
+                    padding: const EdgeInsets.only(left: 30.0),
                     child: TextButton(
                       onPressed: () {
-                        getMarkers();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditContacts(),
+                            ));
                       },
                       child: Text(
                         "Edit saved contacts",
@@ -121,6 +138,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
+
                 ],
               ),
               RaisedButton(
@@ -203,7 +221,7 @@ class _HomeState extends State<Home> {
         print(value);
         LatLng position = LatLng(
             double.parse(value['latitude']), double.parse(value['longitude']));
-        double rating = double.parse(value['rating']);
+        String rating = value['rating'].toString();
         String desc = value['description'].toString();
         Marker mark = Marker(
             markerId: MarkerId('$count'),

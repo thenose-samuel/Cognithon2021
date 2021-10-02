@@ -45,7 +45,7 @@ class _SpotMarkerState extends State<SpotMarker> {
           backgroundColor: Colors.teal[800],
           child: Icon(
             Icons.gps_fixed_rounded,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
@@ -189,7 +189,9 @@ class _SpotMarkerState extends State<SpotMarker> {
                                   )
                               );
                             },
-                            child: Text('SUBMIT'),
+                            child: Text('SUBMIT', style: TextStyle(
+                              color: Colors.white,
+                            )),
                             color: Colors.teal[800],
                           )
                         ],

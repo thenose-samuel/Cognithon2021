@@ -2,8 +2,8 @@ import 'package:twilio_flutter/twilio_flutter.dart';
 import 'package:crime_watch/services/authkeys.dart';
 
 class SendSms{
-    static const String sid = "AC30afb3538beda9cee8ec15d2a2f4dd38";
-    static const String number = "+17472342352";
+    static const String sid = "ACff4aeda1e7587d783f920d9e08c1b87a";
+    static const String number = "+14128967788";
 
     Future<dynamic> sendMessage(String toNumber, String content) async{
       AuthKeys twilio = AuthKeys();

@@ -10,7 +10,7 @@ class ContactsHandler {
       join(path, 'contacts.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE contacts(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,number TEXT NOT NULL)",
+          "CREATE TABLE contacts(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,name TEXT NOT NULL,number TEXT NOT NULL)",
         );
       },
       version: 1,
@@ -35,7 +35,7 @@ class ContactsHandler {
   }
   Future<void> delete(int id) async {
     final Database db = await initializeDB();
-    await db.rawDelete('DELETE FROM contacts WHERE id = $id');
+    await db.rawQuery('delete from contacts where number=$id;');    //await db.rawDelete('DELETE FROM contacts WHERE id = $id');
     print("Success");
   }
 }

@@ -1,18 +1,19 @@
 import 'dart:async';
 import 'package:crime_watch/screens/MarkSafeSpot.dart';
+import 'package:crime_watch/screens/share_location.dart';
+import 'package:crime_watch/services/local_db.dart';
 import 'package:crime_watch/services/mapStyle.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:crime_watch/services/data_handler.dart';
-
+import 'package:crime_watch/screens/FirstSigninPage.dart';
 import 'add_contacts.dart';
 
 class Home extends StatefulWidget {
-   String name, image;
-   Home({Key? key, required this.name, required this.image}) : super(key: key);
+  String name, image;
+  Home({Key? key, required this.name, required this.image}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState(name, image);
@@ -31,13 +32,13 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    super.initState();
+    int index = name.indexOf(' ');
+    name = name.substring(0, index);
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      int index = name.indexOf(' ');
-      name = name.substring(0, index);
       goToCurrentLocation();
       getMarkers();
     });
+    super.initState();
   }
 
   @override
@@ -57,7 +58,18 @@ class _HomeState extends State<Home> {
         ),
       ),
       appBar: AppBar(
-        centerTitle: true,
+        actions: [
+          TextButton(onPressed: () async{
+                DatabaseHandler handler = DatabaseHandler();
+                await handler.deleteUser();
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
+          },
+          child: Text('LOG OUT', style: TextStyle(
+            color: Colors.grey,
+          )),
+          ),
+        ],
         backgroundColor: Colors.black,
         title: Text('Welcome back, $name'),
       ),
@@ -89,7 +101,7 @@ class _HomeState extends State<Home> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EditContacts(),
+                        builder: (context) => ShareLocation(imageURL: image),
                       ));
                 },
                 color: Colors.purple,
@@ -131,7 +143,8 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditContacts(),
+                              builder: (context) => EditContacts(
+                                  first: false, userName: name, image: image),
                             ));
                       },
                       child: Text(
@@ -142,7 +155,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-
                 ],
               ),
               RaisedButton(
@@ -151,7 +163,7 @@ class _HomeState extends State<Home> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => SpotMarker(),
-                      ));
+                      )).then((context) => getMarkers());
                 },
                 color: Colors.purple,
                 child: SizedBox(
@@ -228,12 +240,12 @@ class _HomeState extends State<Home> {
         String rating = value['rating'].toString();
         String desc = value['description'].toString();
         Marker mark = Marker(
-            markerId: MarkerId('$count'),
-            position: position,
-            infoWindow: InfoWindow(
-              title: 'Safety rating: $rating/5.0',
-              snippet: desc,
-            ),
+          markerId: MarkerId('$count'),
+          position: position,
+          infoWindow: InfoWindow(
+            title: 'Safety rating: $rating/5.0',
+            snippet: desc,
+          ),
         );
         markerList.add(mark);
         count++;
@@ -245,5 +257,3 @@ class _HomeState extends State<Home> {
     });
   }
 }
-
-

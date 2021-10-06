@@ -1,13 +1,16 @@
+import 'package:crime_watch/screens/Homepage.dart';
 import 'package:crime_watch/services/contacts_db.dart';
 import 'package:crime_watch/services/contacts_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 class EditContacts extends StatefulWidget {
-  const EditContacts({Key? key}) : super(key: key);
+  bool first;
+  String userName, image;
+  EditContacts({Key? key, required this.first, required this.userName, required this.image}) : super(key: key);
 
   @override
-  _EditContactsState createState() => _EditContactsState();
+  _EditContactsState createState() => _EditContactsState(this.first, this.userName, this.image);
 }
 
 class _EditContactsState extends State<EditContacts> {
@@ -18,6 +21,9 @@ class _EditContactsState extends State<EditContacts> {
   ContactsHandler handler = ContactsHandler();
 
   List<ContactsModel> contacts = [];
+    bool first;
+    String _name, image;
+  _EditContactsState(this.first, this._name, this.image);
   @override
 
   void initState(){
@@ -30,11 +36,22 @@ class _EditContactsState extends State<EditContacts> {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Edit Contacts';
+    String title;
+    (first)?title = 'Add Contacts':title = 'Edit Contacts';
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          if(first) IconButton(
+            onPressed: (){
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Home(name: _name, image: image)));
+
+            },
+            icon: Icon(Icons.arrow_forward_ios_rounded)
+          )
+        ],
         centerTitle: true,
-        title: const Text(title),
+        title:  Text(title),
       ),
       body: Padding(
         padding: EdgeInsets.only(top: 20.0),
@@ -62,7 +79,6 @@ class _EditContactsState extends State<EditContacts> {
                           controller: _controller,
                           onChanged: (value) {
                             name = value;
-                            print(name);
                           },
                         ),
                       ),
@@ -100,6 +116,7 @@ class _EditContactsState extends State<EditContacts> {
                 ],
               ),
             ),
+            Text('Swipe a contact to the any side to delete', style: TextStyle(color: Colors.black54),),
             Container(
               height: 300,
               child: ListView.builder(
@@ -117,7 +134,7 @@ class _EditContactsState extends State<EditContacts> {
                           // what to do after an item has been swiped away.
                           onDismissed: (direction) async {
                             // Remove the item from the data source
-                            await delete(index);
+                            await delete(int.parse(number));
                             refresh();
                             // Then show a snackbar.
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -146,8 +163,9 @@ class _EditContactsState extends State<EditContacts> {
     );
   }
 
-  Future<void> delete(int index) async{
-    await handler.delete(index);
+  Future<void> delete(int number) async{
+    //print(index);
+    await handler.delete(number);
 }
   void refresh() async{
     contacts = await handler.retrieve();

@@ -7,6 +7,7 @@ import 'package:crime_watch/screens/check_connection.dart';
 import 'package:crime_watch/services/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'local_db.dart';
+import 'package:crime_watch/screens/add_contacts.dart';
 
 class SignInService{
 
@@ -34,7 +35,7 @@ class SignInService{
 
         List<UserModel> firstUser = await handler.retrieveUsers();
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Home(name: '${firstUser[0].name}', image: '${firstUser[0].image}',)));
+            context, MaterialPageRoute(builder: (context) => /*Home(name: '${firstUser[0].name}', image: '${firstUser[0].image}',)*/ EditContacts(first: true,userName: '${firstUser[0].name}', image: '${firstUser[0].image}',)));
       }  // if result not null we simply call the MaterialpageRoute,
       else{
         Navigator.pushReplacement(

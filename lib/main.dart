@@ -1,18 +1,12 @@
-import 'package:crime_watch/screens/add_contacts.dart';
-import 'package:crime_watch/screens/share_location.dart';
 import 'package:crime_watch/services/local_db.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:crime_watch/services/user_model.dart';
 import 'screens/FirstSigninPage.dart';
 import 'package:crime_watch/screens/MarkSafeSpot.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_watch/screens/Homepage.dart';
-import 'package:crime_watch/screens/NotifyContacts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +30,7 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
-      home: SignIn()));//ShareLocation(imageURL: '${user[0].image}')));
+      home: first));
 }
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

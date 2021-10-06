@@ -3,6 +3,7 @@ import 'package:path/path.dart';
 import 'user_model.dart';
 
 class DatabaseHandler {
+
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
@@ -30,12 +31,16 @@ class DatabaseHandler {
     final List<Map<String, Object?>> queryResult = await db.query('user');
     return queryResult.map((e) => UserModel.fromMap(e)).toList();
   }
-  Future<void> deleteUser(int id) async {
-    final db = await initializeDB();
-    await db.delete(
-      'user',
-      where: "id = ?",
-      whereArgs: [id],
-    );
+  // Future<void> deleteUser(int id) async {
+  //   final db = await initializeDB();
+  //   await db.delete(
+  //     'user',
+  //     where: "id = ?",
+  //     whereArgs: [id],
+  //   );
+  // }
+  Future<void> deleteUser() async {
+    Database db = await initializeDB();
+    db.rawQuery("delete from "+"user");
   }
 }

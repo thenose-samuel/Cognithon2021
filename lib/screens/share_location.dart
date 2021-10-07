@@ -33,8 +33,9 @@ class _ShareLocationState extends State<ShareLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blueGrey[200],
       appBar: AppBar(
+        backgroundColor: Colors.teal[400],
         actions: [
           IconButton(
             onPressed: () {
@@ -51,7 +52,6 @@ class _ShareLocationState extends State<ShareLocation> {
             icon: Icon(Icons.edit),
           )
         ],
-        backgroundColor: Colors.purple,
         title: Text('Notify Contacts',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
       ),
@@ -108,7 +108,7 @@ class _ShareLocationState extends State<ShareLocation> {
               },
               child: Text(
                 'Fetch location',
-                style: TextStyle(color: Colors.purple),
+                style: TextStyle(color: Colors.teal),
               ),
             ),
             Text(
@@ -146,7 +146,7 @@ class _ShareLocationState extends State<ShareLocation> {
                 },
                 child: Text("Add a custom message?",
                     style: TextStyle(
-                        color: Colors.purple,
+                        color: Colors.teal,
                         fontSize: 15.0,
                         fontWeight: FontWeight.w600))),
             // Text(
@@ -183,7 +183,7 @@ class _ShareLocationState extends State<ShareLocation> {
                   _showDialog(context);
                 }
               },
-              color: Colors.purple,
+              color: Colors.teal,
               child: SizedBox(
                 width: 250,
                 child: Text(

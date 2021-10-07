@@ -3,6 +3,7 @@ import 'package:crime_watch/services/contacts_db.dart';
 import 'package:crime_watch/services/contacts_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class EditContacts extends StatefulWidget {
   bool first;
@@ -36,10 +37,13 @@ class _EditContactsState extends State<EditContacts> {
 
   @override
   Widget build(BuildContext context) {
+
     String title;
     (first)?title = 'Add Contacts':title = 'Edit Contacts';
     return Scaffold(
+      backgroundColor: Colors.blueGrey[200],
       appBar: AppBar(
+        backgroundColor: Colors.teal[400],
         actions: [
           if(first) IconButton(
             onPressed: (){
@@ -69,7 +73,7 @@ class _EditContactsState extends State<EditContacts> {
                       Container(
                         width: 200,
                         child: TextField(
-                          cursorColor: Colors.purple,
+                          cursorColor: Colors.teal[300],
                           decoration: InputDecoration(
                             hintText: "Name",
                             border: OutlineInputBorder(
@@ -85,7 +89,7 @@ class _EditContactsState extends State<EditContacts> {
                       Container(
                         width: 200,
                         child: TextField(
-                          cursorColor: Colors.purple,
+                          cursorColor: Colors.teal[300],
                           decoration: InputDecoration(
                             hintText: "Contact no.",
                             border: OutlineInputBorder(
@@ -109,7 +113,7 @@ class _EditContactsState extends State<EditContacts> {
                       await addContact();
                     },
                     child: Icon(Icons.add),
-                    color: Colors.purple,
+                    color: Colors.teal[300],
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
                   )
@@ -141,7 +145,7 @@ class _EditContactsState extends State<EditContacts> {
                                 SnackBar(content: Text('$number deleted')));
                           },
                           // Show a red background as the item is swiped away.
-                          background: Container(color: Colors.red),
+                          background: Container(color: Colors.teal[300]),
                           child: ListTile(
                             title: Text(number),
                             subtitle: Text('$name'),

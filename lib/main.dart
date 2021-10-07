@@ -6,6 +6,10 @@ import 'package:crime_watch/screens/MarkSafeSpot.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_watch/screens/Homepage.dart';
+import 'package:crime_watch/screens/add_contacts.dart';
+import 'package:crime_watch/screens/MarkSafeSpot.dart';
+import 'package:crime_watch/screens/share_location.dart';
+import 'package:crime_watch/screens/FirstSigninPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +28,12 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
-      home: first));
+      home: Home(name:' ', image:' ')));
+  //Home(name:' ', image:' ')));
+  //EditContacts(userName: ' ', image: ' ',first:false )
+  //SpotMarker()
+  //ShareLocation(imageURL:' ')
+  //SignIn()
 }
 
 class MyApp extends StatefulWidget {

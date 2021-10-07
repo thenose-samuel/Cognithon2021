@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: HexColor("#312f31"),
       body: Padding(
-        padding: const EdgeInsets.only(left: 15, top: 150, right: 15),
+        padding: const EdgeInsets.only(left: 15, top: 100, right: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.only(top: 10.0, left: 90.0),
                   child: Container(
                     child: Image.asset('lib/assets/logo.png'),
-                    width: 240,
+                    width: 220,
                   ),
                 ),
               ],

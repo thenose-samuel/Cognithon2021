@@ -34,7 +34,7 @@ class _SpotMarkerState extends State<SpotMarker> {
   @override
   Widget build(BuildContext context2) {
     return Scaffold(
-      backgroundColor: Colors.teal[300],
+      backgroundColor: Colors.blueGrey[200],
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: 160.0),
         child: FloatingActionButton(
@@ -42,7 +42,7 @@ class _SpotMarkerState extends State<SpotMarker> {
             goToCurrentLocation();
           },
           tooltip: 'Go to current location',
-          backgroundColor: Colors.teal[800],
+          backgroundColor: Colors.teal[600],
           child: Icon(
             Icons.gps_fixed_rounded,
             color: Colors.white,
@@ -62,7 +62,7 @@ class _SpotMarkerState extends State<SpotMarker> {
             fontWeight: FontWeight.w800,
           ),
         ),
-        backgroundColor: Colors.teal[800],
+        backgroundColor: Colors.teal[600],
       ),
       body: Stack(children: [
         Padding(
@@ -73,7 +73,7 @@ class _SpotMarkerState extends State<SpotMarker> {
             style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w500,
-                color: Colors.teal[800]),
+                color: Colors.teal[600]),
           ),
         ),
         Center(
@@ -109,7 +109,7 @@ class _SpotMarkerState extends State<SpotMarker> {
                         child: Text(
                           "Rate the safety provided by this location",
                           style: TextStyle(
-                              color: Colors.teal[800],
+                              color: Colors.teal[600],
                               fontWeight: FontWeight.w400,
                               fontSize: 20),
                         ),
@@ -166,7 +166,7 @@ class _SpotMarkerState extends State<SpotMarker> {
                               },
                               child: Text("Add a short description?",
                                   style: TextStyle(
-                                      color: Colors.teal[800], fontSize: 15.0, fontWeight: FontWeight.w600))),
+                                      color: Colors.teal[600], fontSize: 15.0, fontWeight: FontWeight.w600))),
                           RaisedButton(
                             onPressed: () async{
                               DatabaseService write = DatabaseService();
@@ -192,7 +192,7 @@ class _SpotMarkerState extends State<SpotMarker> {
                             child: Text('SUBMIT', style: TextStyle(
                               color: Colors.white,
                             )),
-                            color: Colors.teal[800],
+                            color: Colors.teal[400],
                           )
                         ],
                       )

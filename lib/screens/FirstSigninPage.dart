@@ -52,7 +52,7 @@ class _SignInState extends State<SignIn> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -63,7 +63,7 @@ class _SignInState extends State<SignIn> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -85,12 +85,12 @@ class _SignInState extends State<SignIn> {
               padding: const EdgeInsets.only(top: 50.00),
               child: Center(
                 child: Text(
-                  "Sign into the app using a Google Account",
+                  "Sign in using a Google Account",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
-                    color: Colors.grey,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -128,7 +128,7 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
-                    color: Colors.grey,
+                    color: Colors.white,
                   ),
                 ),
               ),

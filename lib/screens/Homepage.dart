@@ -47,10 +47,10 @@ class _HomeState extends State<Home> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 150.0),
         child: FloatingActionButton(
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.teal[400],
           child: Icon(
             Icons.location_on_rounded,
-            color: Colors.black,
+            color: Colors.blueGrey[800],
           ),
           onPressed: () {
             goToCurrentLocation();
@@ -66,14 +66,14 @@ class _HomeState extends State<Home> {
                     context, MaterialPageRoute(builder: (context) => SignIn()));
           },
           child: Text('LOG OUT', style: TextStyle(
-            color: Colors.grey,
+            color: Colors.white,
           )),
           ),
         ],
-        backgroundColor: Colors.black,
-        title: Text('Welcome back, $name'),
+        backgroundColor: Colors.blueGrey[800],
+        title: Text('Welcome back, $name', style: TextStyle(color:Colors.white)),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.blueGrey[200],
       body: Stack(
         children: [
           Padding(
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                         builder: (context) => ShareLocation(imageURL: image),
                       ));
                 },
-                color: Colors.purple,
+                color: Colors.teal[400],
                 child: SizedBox(
                   width: 250,
                   child: Row(
@@ -132,7 +132,7 @@ class _HomeState extends State<Home> {
                     child: Text(
                       "Refresh Markers",
                       style: TextStyle(
-                        color: Colors.purple,
+                        color: Colors.teal[400],
                       ),
                     ),
                   ),
@@ -150,7 +150,7 @@ class _HomeState extends State<Home> {
                       child: Text(
                         "Edit saved contacts",
                         style: TextStyle(
-                          color: Colors.purple,
+                          color: Colors.teal[400],
                         ),
                       ),
                     ),
@@ -165,7 +165,7 @@ class _HomeState extends State<Home> {
                         builder: (context) => SpotMarker(),
                       )).then((context) => getMarkers());
                 },
-                color: Colors.purple,
+                color: Colors.teal[400],
                 child: SizedBox(
                   width: 250,
                   child: Row(

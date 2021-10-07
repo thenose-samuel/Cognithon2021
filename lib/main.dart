@@ -7,31 +7,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:crime_watch/screens/Homepage.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   DatabaseHandler handler = DatabaseHandler();
   //bool userExists = false;
   List<UserModel> user = await handler.retrieveUsers();
-  // if (user.length == 0)
-  //   userExists = false;
-  // else {
-  //   userExists = true;
-  // }
   dynamic first;
   //first = SpotMarker();
   if (user.length != 0)
-    first = Home( name: '${user[0].name}', image: '${user[0].image}');
+    first = Home(name: '${user[0].name}', image: '${user[0].image}');
   else
     first = SignIn();
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
       home: first));
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -43,11 +38,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(child: Text('Welcome Screen'), onPressed: (){
-          Navigator.push(context,MaterialPageRoute(
-            builder: (context) => SpotMarker(),
-          ));
-        },),
+        child: TextButton(
+          child: Text('Welcome Screen'),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SpotMarker(),
+                ));
+          },
+        ),
       ),
     );
   }

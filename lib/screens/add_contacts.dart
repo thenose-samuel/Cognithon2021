@@ -154,12 +154,7 @@ class _EditContactsState extends State<EditContacts> {
           ],
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.sTop,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: (){},
-      //   backgroundColor: Colors.purple,
-      //   child: Icon(Icons.add, color: Colors.black,),
-      // ),
+
     );
   }
 

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:crime_watch/services/sign_in.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-//TODO: check https://medium.com/flutterdevs/google-sign-in-with-flutter-8960580dec96 and message me :)
-//TODO: also, we would need a Logout button somewhere..right? How do u keep testing the home page?
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -31,26 +29,18 @@ class _SignInState extends State<SignIn> {
                   fontWeight: FontWeight.w600,
                   color: Colors.white),
             ),
-            //TODO: stylize the CitiSafe or whatever name we chose with a diff text colour, maybe even diff for each word on the name
-            // Text(
-            //   "              CitiSafe",
-            //   style: TextStyle(
-            //       fontSize: 50,
-            //       fontWeight: FontWeight.w700,
-            //       color: Colors.white),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, left: 90.0),
-                  child: Container(child: Image.asset('lib/assets/logo.png'),
+                  child: Container(
+                    child: Image.asset('lib/assets/logo.png'),
                     width: 240,
                   ),
                 ),
               ],
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 50.0, left: 15, right: 15),
               child: Column(
@@ -65,8 +55,9 @@ class _SignInState extends State<SignIn> {
                       color: Colors.grey,
                     ),
                     textAlign: TextAlign.center,
-                  ),Text(
-              "Notify your GPS location to your choice of safety contacts and,",
+                  ),
+                  Text(
+                    "Notify your GPS location to your choice of safety contacts and,",
                     //TODO: see if you can 1. align the actual text (not tag) to the center, 2. change the colour of "View safe spots" , "Notify" "safety contacts", "Mark out safe spots"
                     //ill also try to figure this out, but in the morning
                     style: TextStyle(
@@ -75,7 +66,8 @@ class _SignInState extends State<SignIn> {
                       color: Colors.grey,
                     ),
                     textAlign: TextAlign.center,
-                  ),Text(
+                  ),
+                  Text(
                     "Mark out Safe Spots you discover for other users",
                     //TODO: see if you can 1. align the actual text (not tag) to the center, 2. change the colour of "View safe spots" , "Notify" "safety contacts", "Mark out safe spots"
                     //ill also try to figure this out, but in the morning
@@ -86,16 +78,15 @@ class _SignInState extends State<SignIn> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 50.00),
               child: Center(
                 child: Text(
                   "Sign into the app using a Google Account",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -104,7 +95,6 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
             ),
-
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(top: 50.0),

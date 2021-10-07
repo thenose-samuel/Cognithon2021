@@ -139,7 +139,7 @@ class _ShareLocationState extends State<ShareLocation> {
                     obscureText: false,
                     obscuringCharacter: '•',
                     barrierDismissible: true,
-                    textCapitalization: TextCapitalization.words,
+                    //textCapitalization: TextCapitalization.words,
                   ))!;
                   print(message);
                   setState(() {});

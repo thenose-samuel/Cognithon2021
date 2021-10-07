@@ -160,7 +160,7 @@ class _SpotMarkerState extends State<SpotMarker> {
                                   obscureText: false,
                                   obscuringCharacter: '•',
                                   barrierDismissible: true,
-                                  textCapitalization: TextCapitalization.words,
+                                 // textCapitalization: TextCapitalization.words,
                                 );
                                 print(description);
                               },

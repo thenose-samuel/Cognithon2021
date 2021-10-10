@@ -28,12 +28,7 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'HelveticaNow',
       ),
-      home: Home(name:' ', image:' ')));
-  //Home(name:' ', image:' ')));
-  //EditContacts(userName: ' ', image: ' ',first:false )
-  //SpotMarker()
-  //ShareLocation(imageURL:' ')
-  //SignIn()
+      home: first));
 }
 
 class MyApp extends StatefulWidget {
